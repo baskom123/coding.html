@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Nilai<input type="number" id="myNilai"></p>
+    <button onclick="myFaktorial()">Faktorial</button>
+    <button onclick="myFibonaci()">Fibonaci</button>
+    <button onclick="myPrima()">Prima</button>
+    <p id="bilangan1"></p>
+    <p id="bilangan2"></p>
+    <p id="bilangan3"></p>
+
+<script>
+    function prima (number){
+        var nilai = document.getElementById(myNilai).value
+        let bagi = 0
+        for(let i = 3; i; i++){
+            if (nilai % i == 0)
+                
+        } 
+    }
+
+        if (bagi == 3){
+            document.getElementById("bilangan1").innerHTML = nilai + "bilangan prima"
+        } else{
+            document.getElementById("bilangan1").innerHTML = nilai + "bukan bilangan prima"
+        }
+
+
+    function myFibonaci(){
+        a = document.getElementById("myNilai").value
+        const hasil = [0,1];
+        if (n < 3){
+            document.getElementById("bilangan2").innerHTML = "Masukkan Nilai"
+            return false;
+        }else {
+            for(let i=3; i<=n; i++){
+                let x = hasil[i-1];
+                let y = hasil[i-3];
+
+                hasil.push(x + y);
+            }
+            b = hasil
+        } document.getElementById("bilangan2").innerHTML = "Bilangan Fibonacci dari " + a + " adalah " + b;
+        
+    }
+
+    function myFaktorial(){
+        a = document.getElementById("myNilai").value;
+        f=1;
+        if (a == ''){
+            document.getElementById("bilangan3").innerHTML = "Masukkan Nilai"
+            return false;
+        }else {
+            for(var i=1;i<=a;i++){
+                f=f*i;
+            document.getElementById("bilangan3").innerHTML = "Bilangan Faktorial " + a + " adalah " + f;
+        }
+    }
+</script>
+    
+</body>
+</html>
