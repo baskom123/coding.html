@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br> badan <input type="number" name="" id="berat"></br>
+    <br> badan <input type="number" name="" id="tinggi"></br>
+    <button onclick="tampil()">LIHAT</button>
+    <br><span id="bmi"> </span></br>
+    <span id="kategori"></span>
+
+    <script>
+        function tampil(){
+            let berat = parseFloat(document.getElementById ("berat"));
+            let tinggi = parseFloat(document.getElementById("tinggi"));
+            let bmi = berat / (tinggi * tinggi);
+        
+            let kategori
+            if(bmi > 29){
+                kategori = 'obesitas';    
+            } else if(bmi >= 24){
+                kategori = 'kelebihan berat badan (overweight)';
+            }else if (bmi >= 18.5){
+                kategori = 'normal';
+            }else if (bmi >= 15){
+                kategori = berat badan kurang('underwight')
+            }else{
+                kategori = 'berat badan sangat kurang'
+            }
+
+            document.getElementById('bmi').innerHTML = bmi.toFixed(2);
+            document.getElementById('kategori').innerHTML = 'kategori';
+
+        }
+
+
+    </script>
+</body>
+</html>
