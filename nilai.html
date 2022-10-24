@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br>UTS <input type="number " name="" id = uts></br>
+    <br>UAS <input type="number" name="" id = uas></br>
+    <br> <input type="number" name="" id = tugas></br>
+    <button onclick="tampil()">LIHAT NILAI HURUF</button><br>
+    <span id="nilai"></span>
+
+    <script>
+        function tampil() {
+            let uts = parseInt(document.getElementById("uts").value);
+            let uas = parseInt(document.getElementById("uas").value);
+            let tugas = parseInt(document.getElementById("tugas").value);
+            let nilai = (0.3 * uts) + (0.4 * tugas) + (0.3 * uas);
+
+            let nilaihuruf;
+            if (nilai >= 80) {
+                nilaihuruf = 'A';
+            } else if (nilai >= 70) {
+                nilaihuruf = 'B';
+            } else if (nilai >= 60) {
+                nilaihuruf = 'C';
+            } else if (nilaihuruf >= '60') {
+                nilaihuruf = 'D';
+            } else {
+                nilaihuruf = 'E';
+            }
+
+            document.getElementById('nilai').innerHTML = nilaihuruf;
+
+        }
+    </script>
+</body>
+</html>
