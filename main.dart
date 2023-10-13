@@ -1,7 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flutter_application_2/mybio.dart';
+import 'package:flutter_application_2/provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,21 +10,34 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (context) => BioData(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: MyBio(),
       ),
-      home: const Contoh2(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
 
   final String title;
 
@@ -33,152 +46,71 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> data = [];
-  Future<List<String>> getUserData() async {
-    data = ['Bunny', 'Funny', 'Miles'];
-    await Future.delayed(const Duration(seconds: 3), () {
-      print('Downloaded ${data.length} data');
-    });
-    return getUserData();
-  }
+  int _counter = 0;
 
-  void getData() {
+  void _incrementCounter() {
     setState(() {
-      getUserData();
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
         child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          //
+          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+          // action in the IDE, or press "p" in the console), to see the
+          // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
             Text(
-              'Daftar Pengguna',
+              '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Padding(
-              padding: EdgeInsets.all(15),
-              child: Text(
-                '$data',
-              ),
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                getData();
-                print(data);
-              },
-              child: Text('klick'),
-            )
           ],
         ),
       ),
-    );
-  }
-}
-
-class Contoh2 extends StatefulWidget {
-  const Contoh2({super.key});
-
-  @override
-  State<Contoh2> createState() => _Contoh2State();
-}
-
-class _Contoh2State extends State<Contoh2> {
-  bool isReset = false;
-  bool isPlay = false;
-  bool isPaused = false;
-  bool isSubscribed = false;
-  String desc = "";
-  int percent = 100;
-  int getSteam = 0;
-  double circular = 1;
-  late StreamSubscription _sub;
-  final Stream _myStream =
-      Stream.periodic(const Duration(seconds: 1), (int count) {
-    return count;
-  });
-
-  String isFull(inp) {
-    if (inp == 100) {
-      desc = "\nFull";
-    } else if (inp == 0) {
-      desc = "\nEmpty";
-    } else {
-      desc = "";
-    }
-    return desc;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("stream")),
-      body: Center(
-        child: LayoutBuilder(builder: (context, constraints) {
-          // final double avaWidth = constraints.maxWidth;
-          final double avaHeight = constraints.maxHeight;
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    percent = 100;
-                    circular = percent / 100;
-                    isPaused = true;
-                    print(isPaused);
-                  },
-                  child: Text('Reset')),
-              Expanded(
-                  child: CircularPercentIndicator(
-                header: Text(isFull(percent)),
-                radius: avaHeight / 5,
-                lineWidth: 10,
-                percent: circular,
-                center: Text("$percent %"),
-              ))
-            ],
-          );
-        }),
-      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            isPlay = !isPlay;
-            print(isPaused);
-          });
-          if (isPlay) {
-            if (isSubscribed) {
-              isSubscribed = true;
-              _sub = _myStream.listen((event) {
-                getSteam = int.parse(event.toString());
-              });
-              setState(() {
-                if (percent - getSteam <= 0) {
-                  isSubscribed = false;
-                  _sub.cancel();
-                  percent = 0;
-                  circular = 0;
-                } else {
-                  percent = percent - getSteam;
-                  circular = percent / 100;
-                }
-              });
-            } else {
-              isPaused = true;
-              _sub.pause();
-            }
-          }
-        },
-        child: isPlay ? Icon(Icons.play_arrow) : Icon(Icons.pause),
-      ),
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
